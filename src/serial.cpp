@@ -13,7 +13,6 @@ void serial::open(const std::string &devName) {
         sp_set_stopbits(serialPort, 1);
         sp_set_flowcontrol(serialPort,SP_FLOWCONTROL_NONE);
         portStatus = sp_set_bits(serialPort, 8);
-        portStatus = SP_OK; //DEGUG
     }while(portStatus!=SP_OK);
 }
 
