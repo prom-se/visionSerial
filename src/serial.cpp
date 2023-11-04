@@ -20,7 +20,7 @@ void serial::open(const std::string &devName) {
 [[noreturn]] void serial::send() {
     while (true) {
         std::vector<uint8_t> sendVec = toVector(*sendMsg);
-        sp_blocking_write(serialPort,sendVec.data(),sendVec.size(),0);
+        sp_blocking_write(serialPort,sendVec.data(),sendVec.size(),50);
     }
 }
 
@@ -28,15 +28,17 @@ void serial::open(const std::string &devName) {
 
 [[noreturn]] void serial::recive() {
     while(true){
-        std::vector<uint8_t> reciveVec;
+        std::vector<uint8_t> receiveVec;
         uint8_t head;
-        reciveVec.resize(sizeof(carMsg)-1);
-        sp_nonblocking_read(serialPort,&head,1);
+        receiveVec.resize(sizeof(carMsg)+1);
+        sp_blocking_read(serialPort,&head,1,10);
         if(head==0xA5){
-            sp_nonblocking_read(serialPort,reciveVec.data(),sizeof(carMsg)-1);
-            reciveVec.resize(sizeof(carMsg));
-            reciveVec.emplace(reciveVec.begin(),head);
-            *reciveMsg = fromVector(reciveVec);
+            sp_blocking_read(serialPort,receiveVec.data(),sizeof(carMsg)+1,10);
+            if(receiveVec[16]==0x5A){
+                receiveVec.resize(sizeof(carMsg)+2);
+                receiveVec.emplace(receiveVec.begin(),head);
+                *receiveMsg = fromVector(receiveVec);
+            }
         }
     }
 }

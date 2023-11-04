@@ -3,8 +3,8 @@
 //
 #include "include/serial.hpp"
 serial Serial;
-aimMsg msg1 = {0xa5,1.0,1.0};
-carMsg msg2 = {0xa5,1,false,0,0,20};
+aimMsg msg1 = {1,1};
+carMsg msg2 = {1,false,0,0,20};
 
 int main(){
     Serial.open("/dev/ttyUSB0");

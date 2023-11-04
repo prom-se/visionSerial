@@ -15,7 +15,7 @@ class serial {
 private:
     sp_port *serialPort={};
     aimMsg *sendMsg   = new aimMsg;
-    carMsg *reciveMsg = new carMsg;
+    carMsg *receiveMsg = new carMsg;
 
     [[noreturn]] void send();
     [[noreturn]] void recive();
@@ -24,7 +24,7 @@ public:
     void open(const std::string &devName);
     inline void update(void *aim_msg,void *car_msg){
         memcpy(sendMsg,aim_msg,sizeof(aimMsg));
-        memcpy(car_msg,reciveMsg,sizeof(carMsg));
+        memcpy(car_msg,receiveMsg,sizeof(carMsg));
     }
     void sendThread(){
         std::thread send_thread(&serial::send,std::ref(*this));
