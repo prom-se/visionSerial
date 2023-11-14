@@ -13,7 +13,7 @@ visionSerial
     └── serial.cpp  
 ```
 ## 步兵数据包定义
-定义可在[packet.h](src/packet.h)中修改
+定义可在[packet.h](include/packet.h)中修改
 ### 1.visionArray - TX
 | Byte | Data |
 | - | - |
