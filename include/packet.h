@@ -14,7 +14,7 @@ struct visionMsg{
     float aimPitch;             // 目标Pitch
 };
 
-struct carMsg{
+struct robotMsg{
     uint8_t mode;               // 自瞄模式 0-装甲板 1-小符 2-大符
     uint8_t foeColor;           // 敌方颜色 0-blue 1-red
     float carYaw;               // 自身Yaw
@@ -27,9 +27,9 @@ union visionArray{
     uint8_t array[sizeof(struct visionMsg)];
 };
 
-union carArray{
-    struct carMsg msg;
-    uint8_t array[sizeof(struct carMsg)];
+union robotArray{
+    struct robotMsg msg;
+    uint8_t array[sizeof(struct robotMsg)];
 };
 
 

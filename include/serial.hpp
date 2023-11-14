@@ -4,35 +4,35 @@
 
 #ifndef SERIAL_TEST_SERIAL_HPP
 #define SERIAL_TEST_SERIAL_HPP
-#include <libserialport.h>
 #include <thread>
-#include <string>
-#include <cstring>
 #include <vector>
+#include <unistd.h>
 #include <CSerialPort/SerialPort.h>
 #include "include/packet.h"
 using namespace itas109;
-class serial {
+class visionSerial {
 private:
     CSerialPort ser;
     [[noreturn]] void send();
     [[noreturn]] void receive();
     visionArray visionArray_;
-    carArray carArray_;
+    robotArray robotArray_;
 public:
-    serial(const char* devName);
-    inline void update(visionMsg *vision,carMsg *car){
+    visionSerial(const char* devName,const int baudRate);
+    inline void visionUpdate(visionMsg *vision){
         visionArray_.msg=*vision;
-        *car=carArray_.msg;
+    }
+    inline void robotUpdate(robotMsg *robot){
+        *robot=robotArray_.msg;
     }
 
     void sendThread(){
-        std::thread send_thread(&serial::send,std::ref(*this));
+        std::thread send_thread(&visionSerial::send,std::ref(*this));
         send_thread.detach();
     }
 
     void reciveThread(){
-        std::thread recive_thread(&serial::receive,std::ref(*this));
+        std::thread recive_thread(&visionSerial::receive,std::ref(*this));
         recive_thread.detach();
     }
 };

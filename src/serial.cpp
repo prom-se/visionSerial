@@ -3,25 +3,27 @@
 //
 
 #include "include/serial.hpp"
-
-serial::serial(const char* devName){
-    ser.init(devName,115200);
+visionSerial::visionSerial(const char* devName, const int baudRate){
+    ser.init(devName,baudRate);
     ser.open();
+    // ser.setReadIntervalTimeout(5);
 }
 
-[[noreturn]] void serial::send(){
+[[noreturn]] void visionSerial::send(){
     uint8_t head=0xA5;
     while(true){
+        // usleep(5000);
         ser.writeData(&head,1);
         ser.writeData(visionArray_.array,sizeof(visionArray));
     }
 }
 
-[[noreturn]] void serial::receive(){
+[[noreturn]] void visionSerial::receive(){
     uint8_t head;
     while(true){
+        // usleep(5000);
         head=0x00;
         ser.readData(&head,1);
-        if(head==0xA5) ser.readData(carArray_.array,sizeof(carArray));
+        if(head==0xA5) ser.readData(robotArray_.array,sizeof(robotArray));
     }
 }
