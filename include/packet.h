@@ -17,8 +17,8 @@ struct visionMsg{
 struct robotMsg{
     uint8_t mode;               // 自瞄模式 0-装甲板 1-小符 2-大符
     uint8_t foeColor;           // 敌方颜色 0-blue 1-red
-    float carYaw;               // 自身Yaw
-    float carPitch;             // 自身Pitch
+    float robotYaw;               // 自身Yaw
+    float robotPitch;             // 自身Pitch
     float muzzleSpeed;          // 弹速
 };
 
