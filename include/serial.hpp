@@ -9,29 +9,30 @@
 #include <string>
 #include <cstring>
 #include <vector>
-#include "include/packet.hpp"
-
+#include <CSerialPort/SerialPort.h>
+#include "include/packet.h"
+using namespace itas109;
 class serial {
 private:
-    sp_port *serialPort={};
-    aimMsg *sendMsg   = new aimMsg;
-    carMsg *receiveMsg = new carMsg;
-
+    CSerialPort ser;
     [[noreturn]] void send();
-    [[noreturn]] void recive();
-
+    [[noreturn]] void receive();
+    visionArray visionArray_;
+    carArray carArray_;
 public:
-    void open(const std::string &devName);
-    inline void update(void *aim_msg,void *car_msg){
-        memcpy(sendMsg,aim_msg,sizeof(aimMsg));
-        memcpy(car_msg,receiveMsg,sizeof(carMsg));
+    serial(const char* devName);
+    inline void update(visionMsg *vision,carMsg *car){
+        visionArray_.msg=*vision;
+        *car=carArray_.msg;
     }
+
     void sendThread(){
         std::thread send_thread(&serial::send,std::ref(*this));
         send_thread.detach();
     }
+
     void reciveThread(){
-        std::thread recive_thread(&serial::recive,std::ref(*this));
+        std::thread recive_thread(&serial::receive,std::ref(*this));
         recive_thread.detach();
     }
 };
