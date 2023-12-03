@@ -2,7 +2,7 @@
 // Created by promise on 10/31/23.
 //
 
-#include "include/serial.hpp"
+#include "../include/serial.hpp"
 visionSerial::visionSerial(const char* devName, const int baudRate){
     ser.init(devName,baudRate);
     ser.open();

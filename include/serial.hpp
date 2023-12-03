@@ -8,7 +8,7 @@
 #include <vector>
 #include <unistd.h>
 #include <CSerialPort/SerialPort.h>
-#include "include/packet.h"
+#include "../include/packet.h"
 using namespace itas109;
 class visionSerial {
 private:
