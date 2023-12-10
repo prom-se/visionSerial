@@ -10,7 +10,6 @@ visionSerial
 │   └── serial.hpp  
 └── src             源文件目录
     ├── demo.cpp    示例
-    └── serial.cpp  
 ```
 ## 步兵数据包定义
 定义可在[packet.h](include/packet.h)中修改
@@ -36,8 +35,7 @@ visionSerial
 | 12-15 | muzzleSpeed |
 ## 使用方法
 1. 实例化visionSerial对象时传入串口名称和波特率
-2. 打开接收和发送线程
-3. 更新数据
+2. 更新数据
 
 具体可参考
 [demo.cpp](src/demo.cpp)

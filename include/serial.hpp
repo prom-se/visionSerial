@@ -1,5 +1,5 @@
-#ifndef SERIAL_TEST_SERIAL_HPP
-#define SERIAL_TEST_SERIAL_HPP
+#ifndef VISION_SERIAL_HPP
+#define VISION_SERIAL_HPP
 
 #include <thread>
 #include <vector>
@@ -113,4 +113,4 @@ private:
     robotArray robotArray_;
 };
 
-#endif //SERIAL_TEST_SERIAL_HPP
+#endif //VISION_SERIAL_HPP
