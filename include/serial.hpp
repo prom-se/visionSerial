@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <CSerialPort/SerialPort.h>
 #include "../include/packet.h"
+#include <string.h>
 
 using namespace itas109;
 
