@@ -1,13 +1,10 @@
-//
-// Created by promise on 11/3/23.
-//
-
 #ifndef SERIAL_TEST_PACKET_H
 #define SERIAL_TEST_PACKET_H
 
 #include <cstdint>
 #include <vector>
 #include <algorithm>
+
 #pragma pack(2)
 struct visionMsg{
     uint16_t head;
