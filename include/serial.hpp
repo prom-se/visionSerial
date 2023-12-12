@@ -47,7 +47,7 @@ public:
     @brief 更新发送的视觉信息
     @param vision 视觉信息结构体
     */
-    inline void visionUpdate(visionMsg vision){
+    inline void visionUpdate(visionMsg &vision){
         vision.head=0xa5;
         visionArray_.msg=vision;
     };
@@ -56,7 +56,7 @@ public:
     @brief 获得接收的机器人信息
     @param robot 机器人信息结构体
     */
-    inline void robotUpdate(robotMsg robot){
+    inline void robotUpdate(robotMsg &robot){
         robot=robotArray_.msg;
     };
 
@@ -80,10 +80,14 @@ private:
     void receiveThreadFun(){
         while(true){
             // usleep(5000);
-            uint8_t array[sizeof(robotArray)];
-            ser->readData(array,sizeof(robotArray));
-            if(array[0]==0xa5 && array[1]==0x00){
-                std::memcpy(robotArray_.array,array,sizeof(robotArray));
+            std::vector<uint8_t> head(2);
+            std::vector<uint8_t> array(sizeof(robotArray)-2);
+            ser->readData(head.data(),2);
+            if(head[0]==0xa5 && head[1]==0x00){
+                ser->readData(array.data(),sizeof(robotArray)-2);
+                array.reserve(sizeof(robotArray));
+                array.insert(array.begin(),head[1]);array.insert(array.begin(),head[0]);
+                std::memcpy(robotArray_.array,array.data(),sizeof(robotArray));
             }
             isOk=ser->isOpen();
         }
